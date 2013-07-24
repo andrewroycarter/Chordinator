@@ -2,6 +2,7 @@
 #include "pebble_app.h"
 #include "pebble_fonts.h"
 
+#include "chord_type_menu.h"
 
 #define MY_UUID { 0x63, 0xB8, 0x75, 0x5C, 0x3E, 0x16, 0x45, 0xF6, 0xB4, 0x63, 0x5E, 0x0B, 0x68, 0xAE, 0x56, 0x1A }
 PBL_APP_INFO(MY_UUID,
@@ -9,6 +10,8 @@ PBL_APP_INFO(MY_UUID,
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_STANDARD_APP);
+
+static char *notes[12] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
 
 static Window chord_menu_window;
 static SimpleMenuLayer root_note_menu_layer;
@@ -33,13 +36,19 @@ void pbl_main(void *params) {
 
 }
 
+
+void note_menu_item_selected_callback(int index, void *context) {
+
+    display_chord_type_menu(notes[index]);
+
+}
+
 void setup_menu_sections() {
 
-    static char *notes[12] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     for (int i = 0; i < 12; i++) {
         root_note_menu_items[i] = (SimpleMenuItem) {
             .title = notes[i],
-            .callback = NULL,
+            .callback = note_menu_item_selected_callback,
         };
     }
 
