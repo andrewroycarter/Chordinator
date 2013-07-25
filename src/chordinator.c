@@ -53,12 +53,8 @@ void setup_menu_sections() {
         };
     }
 
-    ResHandle res = resource_get_handle(RESOURCE_ID_TEST);
-    static uint8_t buffer[64];
-    resource_load(res, buffer, sizeof(buffer));
-
     root_note_menu_sections[0] = (SimpleMenuSection) {
-        .title = (char *)buffer, //Select Root Note
+        .title = "Select Root Note",
         .items = root_note_menu_items,
         .num_items = sizeof(root_note_menu_items) / sizeof(root_note_menu_items[0])
     };
