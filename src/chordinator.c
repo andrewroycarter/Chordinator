@@ -23,6 +23,7 @@ void setup_menu_sections();
 
 void handle_init(AppContextRef ctx) {
 
+    resource_init_current_app(&VERSION); 
     setup_chord_menu_window();
 
 }
@@ -52,8 +53,12 @@ void setup_menu_sections() {
         };
     }
 
+    ResHandle res = resource_get_handle(RESOURCE_ID_TEST);
+    static uint8_t buffer[64];
+    resource_load(res, buffer, sizeof(buffer));
+
     root_note_menu_sections[0] = (SimpleMenuSection) {
-        .title = "Select Root Note",
+        .title = (char *)buffer, //Select Root Note
         .items = root_note_menu_items,
         .num_items = sizeof(root_note_menu_items) / sizeof(root_note_menu_items[0])
     };

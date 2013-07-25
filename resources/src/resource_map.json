@@ -2,6 +2,11 @@
 {"friendlyVersion": "VERSION",
  "versionDefName": "VERSION",
  "media": [
+        {
+            "type":"raw",
+            "defName":"TEST",
+            "file":"raw/test.txt"
+        },
 	   {
 	    "type":"raw",
 	    "defName":"DUMMY",
