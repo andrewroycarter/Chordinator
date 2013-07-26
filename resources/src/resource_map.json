@@ -4,13 +4,8 @@
  "media": [
         {
             "type":"raw",
-            "defName":"TEST",
-            "file":"raw/test.txt"
-        },
-	   {
-	    "type":"raw",
-	    "defName":"DUMMY",
-	    "file":"resource_map.json"
-	   }
+            "defName":"CHORDS",
+            "file":"raw/chords"
+        }
 	  ]
 }

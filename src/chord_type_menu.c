@@ -1,4 +1,5 @@
 #include "chord_type_menu.h"
+#include "chord.h"
 
 #include "pebble_os.h"
 #include "pebble_app.h"
@@ -15,11 +16,12 @@ static char *root_note;
 void setup_chord_type_window();
 void chord_type_window_load(Window *window);
 void setup_chord_type_menu_sections();
+void chord_type_menu_item_selected_callback(int index, void *context);
 
 void setup_chord_type_menu_sections() {
-    
+   
     int offset = 0;
-
+    
     for (int i = 0; i < (int)(sizeof(types) / sizeof(types[0])); i++) {
        
         char title[16];
@@ -31,7 +33,7 @@ void setup_chord_type_menu_sections() {
 
         chord_type_menu_items[i] = (SimpleMenuItem) {
            .title = name,
-           .callback = NULL,
+           .callback = chord_type_menu_item_selected_callback,
         };
 
    }
@@ -41,6 +43,12 @@ void setup_chord_type_menu_sections() {
         .items = chord_type_menu_items,
         .num_items = sizeof(chord_type_menu_items) / sizeof(chord_type_menu_items[0])
     };
+
+}
+
+void chord_type_menu_item_selected_callback(int index, void *context) {
+
+    display_chord(chord_type_menu_items[index].title);
 
 }
 
