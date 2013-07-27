@@ -10,10 +10,20 @@ static char chord_fingering[6];
 static char chord_name[64];
 static TextLayer text_layer;
 static BmpContainer background_container;
+static Layer fingering_layer;
 
 void setup_chord_window();
 void chord_window_load(Window *window);
 void get_chord_fingering(const char *chord);
+void chord_fingering_update_proc(Layer *layer, GContext *context);
+
+void chord_fingering_update_proc(Layer *layer, GContext *context) {
+
+    graphics_context_set_stroke_color(context, GColorBlack);
+    graphics_context_set_fill_color(context, GColorBlack);
+    graphics_draw_circle(context, (GPoint){20, 20}, 10);
+    graphics_fill_circle(context, (GPoint){20, 20}, 10);
+}
 
 void chord_window_load(Window *window) {
 
@@ -28,6 +38,10 @@ void chord_window_load(Window *window) {
     text_layer_set_font(&text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
     text_layer_set_text(&text_layer, chord_name);
     layer_add_child(root_layer, (Layer *)&text_layer);
+
+    layer_init(&fingering_layer, GRect(0, 0, 144, 152));
+    layer_set_update_proc(&fingering_layer, chord_fingering_update_proc);
+    layer_add_child(root_layer, &fingering_layer);
 
 }
 
