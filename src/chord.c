@@ -7,7 +7,9 @@
 
 static Window chord_window;
 static char chord_fingering[6];
+static char chord_name[64];
 static TextLayer text_layer;
+static BmpContainer background_container;
 
 void setup_chord_window();
 void chord_window_load(Window *window);
@@ -15,18 +17,29 @@ void get_chord_fingering(const char *chord);
 
 void chord_window_load(Window *window) {
 
-  Layer *root_layer = window_get_root_layer(window);
+    Layer *root_layer = window_get_root_layer(window);
 
-  text_layer_init(&text_layer, GRect(0, 50, 200, 45));  
-  text_layer_set_text_alignment(&text_layer, GTextAlignmentCenter);
-  text_layer_set_font(&text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14));
-  text_layer_set_text(&text_layer, chord_fingering);
-  layer_add_child(root_layer, (Layer *)&text_layer);
+    bmp_init_container(RESOURCE_ID_BACKGROUND, &background_container);
+    layer_set_frame((Layer *)&background_container.layer, GRect(0, 0, 144, 152));
+    layer_add_child(root_layer, (Layer *)&background_container.layer);
+
+    text_layer_init(&text_layer, GRect(0, -2, 144, 16));  
+    text_layer_set_text_alignment(&text_layer, GTextAlignmentCenter);
+    text_layer_set_font(&text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
+    text_layer_set_text(&text_layer, chord_name);
+    layer_add_child(root_layer, (Layer *)&text_layer);
+
+}
+
+void chord_window_unload(Window *window) {
+
+    bmp_deinit_container(&background_container);
 
 }
 
 void display_chord(const char *chord) {
 
+    strncpy(chord_name, chord, 64);
     get_chord_fingering(chord);
     setup_chord_window();
     window_stack_push(&chord_window, true /* Animated */);
@@ -65,7 +78,8 @@ void setup_chord_window() {
 
     window_init(&chord_window, "Chordinator");
     window_set_window_handlers(&chord_window, (WindowHandlers){
-            .load = chord_window_load
+            .load = chord_window_load,
+            .unload = chord_window_unload
     });
 
 }

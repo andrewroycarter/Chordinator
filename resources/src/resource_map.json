@@ -6,6 +6,11 @@
             "type":"raw",
             "defName":"CHORDS",
             "file":"raw/chords"
+        },
+        {
+            "type":"png",
+            "defName":"BACKGROUND",
+            "file":"images/background.png"
         }
 	  ]
 }
