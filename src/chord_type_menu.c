@@ -9,7 +9,7 @@ static Window chord_type_window;
 static SimpleMenuLayer chord_type_menu_layer;
 static SimpleMenuSection chord_type_menu_sections[1];
 static SimpleMenuItem chord_type_menu_items[3];
-static char *types[3] = {"Major", "Minor", "7"};
+static char *types[3] = {"Major", "Minor", "Major 7"};
 static char menu_item_names[64];
 static char *root_note;
 

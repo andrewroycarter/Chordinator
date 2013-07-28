@@ -77,23 +77,17 @@ void get_chord_fingering(const char *chord) {
     resource_load(res, buffer, 256);
 
     BufferScanner buffer_scanner;
-    buffer_scanner_init(&buffer_scanner, (char *)buffer, resource_size(res), ',');
+    buffer_scanner_init(&buffer_scanner, (char *)buffer, resource_size(res), '\n');
 
     char string[16];
     int match_found = 0;
 
-    int safe = 0;
-
     while (!match_found && buffer_scanner.position < (int)resource_size(res)) {
 
         buffer_scanner_scan_next_string(&buffer_scanner, string, 16);     
-        if (strncmp(string, chord, 5) == 0) {
+        if (strncmp(string, chord, 10) == 0) {
                 buffer_scanner_scan_next_string(&buffer_scanner, chord_fingering, 6);
                 match_found = 1;
-        }
-        safe++;
-        if (safe > 10) {
-            break;
         }
     }
 }
