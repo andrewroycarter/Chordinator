@@ -21,8 +21,18 @@ void chord_fingering_update_proc(Layer *layer, GContext *context) {
 
     graphics_context_set_stroke_color(context, GColorBlack);
     graphics_context_set_fill_color(context, GColorBlack);
-    graphics_draw_circle(context, (GPoint){20, 20}, 10);
-    graphics_fill_circle(context, (GPoint){20, 20}, 10);
+    
+    for (int i = 0; i < 6; i++) {
+        
+        char number = chord_fingering[i];
+        if (number != 'x' && number != '0') {
+            
+            graphics_fill_circle(context, (GPoint){(11) + (i * 24), 20 + (int)(number - '0') * 24}, 10);
+
+        }
+
+    }
+
 }
 
 void chord_window_load(Window *window) {
