@@ -27,8 +27,17 @@ void chord_fingering_update_proc(Layer *layer, GContext *context) {
         char number = chord_fingering[i];
         if (number != 'x' && number != '0') {
             
-            graphics_fill_circle(context, (GPoint){(11) + (i * 24), 20 + (int)(number - '0') * 24}, 10);
+            graphics_fill_circle(context, (GPoint){11 + (i * 24), 20 + (int)(number - '0') * 24}, 10);
 
+        } else if (number == 'x') {
+            
+            graphics_draw_line(context, (GPoint){11 + (i * 24) - 6, 30}, (GPoint){11 + (i * 24) + 6, 18});
+            graphics_draw_line(context, (GPoint){11 + (i * 24) - 6, 18}, (GPoint){11 + (i * 24) + 6, 30});
+
+        } else if (number == '0') {
+
+            graphics_draw_circle(context, (GPoint){11 + (i * 24), 24}, 6);
+       
         }
 
     }
