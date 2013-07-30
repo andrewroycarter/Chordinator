@@ -73,21 +73,21 @@ void display_chord(const char *chord) {
 void get_chord_fingering(const char *chord) {
 
     ResHandle res = resource_get_handle(RESOURCE_ID_CHORDS);
-    uint8_t buffer[256];
-    resource_load(res, buffer, 256);
+    uint8_t buffer[resource_size(res)];
+    resource_load(res, buffer, resource_size(res));
 
     BufferScanner buffer_scanner;
     buffer_scanner_init(&buffer_scanner, (char *)buffer, resource_size(res), '\n');
 
-    char string[16];
+    char string[32];
     int match_found = 0;
 
-    while (!match_found && buffer_scanner.position < (int)resource_size(res)) {
+    while (buffer_scanner.position < (int)resource_size(res)) {
 
-        buffer_scanner_scan_next_string(&buffer_scanner, string, 16);     
+        buffer_scanner_scan_next_string(&buffer_scanner, string, 32);     
         if (strncmp(string, chord, 10) == 0) {
                 buffer_scanner_scan_next_string(&buffer_scanner, chord_fingering, 6);
-                match_found = 1;
+                break;
         }
     }
 }
