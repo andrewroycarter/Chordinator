@@ -24,18 +24,16 @@ void buffer_scanner_scan_next_string(BufferScanner *buffer_scanner, char *string
     memset(string, '\0', max_string_size);
     
     int string_position = 0;
+    int finished = 0;
     char delimiter = buffer_scanner->delimiter;
     char *buffer = buffer_scanner->buffer;
     
-    while (buffer_scanner->position < buffer_scanner->length && /* make sure we don't scan past buffer */
-           string_position < max_string_size /* make sure we don't overflow passed in string */)
+    while ( !finished && /* when a match is found, finished == 1 */
+            buffer_scanner->position < buffer_scanner->length && /* make sure we don't scan past buffer */
+            string_position < max_string_size /* make sure we don't overflow passed in string */)
     {   
         // capture current char
         char current_char = buffer[buffer_scanner->position];
-        
-        // move positions up one in our buffer position and string position for next pass
-        buffer_scanner->position++;
-        string_position++;
         
         // if we haven't hit the delimiter yet, copy the char into our string
         if (current_char != delimiter)
@@ -45,7 +43,11 @@ void buffer_scanner_scan_next_string(BufferScanner *buffer_scanner, char *string
         else
         {
             // we hit the delimiter- string should now contain the next item
-            break;
+            finished = 1;
         }
+
+        // move positions up one in our buffer position and string position for next pass
+        buffer_scanner->position++;
+        string_position++;
     }
 }
