@@ -38,22 +38,17 @@ void chord_fingering_update_proc(Layer *layer, GContext *context)
     {    
         char number = chord_fingering[i];
 
-        // current char is a number, draw a circle to indicate fingering
-        if (number != 'x' && number != '0')
+        if (number != 'x' && number != '0') // current char is a number, draw a circle to indicate fingering
         {    
             graphics_fill_circle(context, (GPoint){11 + (i * 24), 20 + (int)(number - '0') * 24}, 10);
         }
-        // char is an 'x', draw X on fretboard to indicate blocked string
-        else if (number == 'x')
+        else if (number == 'x') // char is an 'x', draw X on fretboard to indicate blocked string
         {   
             graphics_draw_line(context, (GPoint){11 + (i * 24) - 6, 30}, (GPoint){11 + (i * 24) + 6, 18});
             graphics_draw_line(context, (GPoint){11 + (i * 24) - 6, 18}, (GPoint){11 + (i * 24) + 6, 30});
-
         }
-        // char is a '0', draw O on fretboard to indicate open string
-        else if (number == '0')
+        else if (number == '0') // char is a '0', draw O on fretboard to indicate open string
         {
-
             graphics_draw_circle(context, (GPoint){11 + (i * 24), 24}, 6);
         }
     }
@@ -95,7 +90,7 @@ void display_chord(const char *chord)
     strncpy(chord_name, chord, 64);
 
     // get chord fingering using chord_name as a key for resources/src/raw/chords 
-    get_chord_fingering(chord);
+    get_chord_fingering(chord_name);
     setup_chord_window();
     window_stack_push(&chord_window, true /* Animated */);
 }
