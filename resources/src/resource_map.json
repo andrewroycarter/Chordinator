@@ -11,6 +11,11 @@
             "type":"png",
             "defName":"BACKGROUND",
             "file":"images/background.png"
+        },
+        {
+            "type":"png",
+            "defName":"MENU_ICON",
+            "file":"images/icon.png"
         }
 	  ]
 }

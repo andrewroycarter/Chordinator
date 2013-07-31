@@ -8,7 +8,7 @@
 PBL_APP_INFO(MY_UUID,
              "Chordinator", "Pinch Studios",
              0, 1, /* App version */
-             DEFAULT_MENU_ICON,
+             RESOURCE_ID_MENU_ICON,
              APP_INFO_STANDARD_APP);
 
 // Used to build the menu and build the key used to find the fingering
