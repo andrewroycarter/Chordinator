@@ -11,6 +11,8 @@ PBL_APP_INFO(MY_UUID,
              DEFAULT_MENU_ICON,
              APP_INFO_STANDARD_APP);
 
+// Used to build the menu and build the key used to find the fingering
+// in /resources/src/raw/chords
 static char *notes[12] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
 
 static Window chord_menu_window;
@@ -21,48 +23,47 @@ static SimpleMenuItem root_note_menu_items[12];
 void setup_chord_menu_window();
 void setup_menu_sections();
 
-void handle_init(AppContextRef ctx) {
-
+void handle_init(AppContextRef ctx)
+{
     resource_init_current_app(&VERSION); 
     setup_chord_menu_window();
-
 }
 
-void pbl_main(void *params) {
-
-  PebbleAppHandlers handlers = {
+void pbl_main(void *params)
+{
+  PebbleAppHandlers handlers =
+  {
     .init_handler = &handle_init
   };
   app_event_loop(params, &handlers);
-
 }
 
-
-void note_menu_item_selected_callback(int index, void *context) {
-
+void note_menu_item_selected_callback(int index, void *context)
+{
     display_chord_type_menu(notes[index]);
-
 }
 
-void setup_menu_sections() {
-
-    for (int i = 0; i < 12; i++) {
-        root_note_menu_items[i] = (SimpleMenuItem) {
+void setup_menu_sections()
+{
+    for (int i = 0; i < 12; i++)
+    {
+        root_note_menu_items[i] = (SimpleMenuItem)
+        {
             .title = notes[i],
             .callback = note_menu_item_selected_callback,
         };
     }
 
-    root_note_menu_sections[0] = (SimpleMenuSection) {
+    root_note_menu_sections[0] = (SimpleMenuSection)
+    {
         .title = "Select Root Note",
         .items = root_note_menu_items,
         .num_items = sizeof(root_note_menu_items) / sizeof(root_note_menu_items[0])
     };
-
 }
 
-void chord_menu_window_load(Window *window) {
-
+void chord_menu_window_load(Window *window)
+{
     Layer *root_layer = window_get_root_layer(&chord_menu_window);
 
     simple_menu_layer_init(
@@ -77,14 +78,15 @@ void chord_menu_window_load(Window *window) {
     layer_add_child(root_layer, &root_note_menu_layer.menu.scroll_layer.layer);
 }
 
-void setup_chord_menu_window() {
-
+void setup_chord_menu_window()
+{
     setup_menu_sections();
 
-  window_init(&chord_menu_window, "Chordinator");
-  window_set_window_handlers(&chord_menu_window, (WindowHandlers){
+    window_init(&chord_menu_window, "Chordinator");
+    window_set_window_handlers(&chord_menu_window, (WindowHandlers)
+            {
             .load = chord_menu_window_load
-          });
-  window_stack_push(&chord_menu_window, true /* Animated */);
+            });
 
+  window_stack_push(&chord_menu_window, true);
 }
