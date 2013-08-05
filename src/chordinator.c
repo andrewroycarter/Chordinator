@@ -7,7 +7,7 @@
 #define MY_UUID { 0x63, 0xB8, 0x75, 0x5C, 0x3E, 0x16, 0x45, 0xF6, 0xB4, 0x63, 0x5E, 0x0B, 0x68, 0xAE, 0x56, 0x1A }
 PBL_APP_INFO(MY_UUID,
              "Chordinator", "Pinch Studios",
-             0, 1, /* App version */
+             0, 2, /* App version */
              RESOURCE_ID_MENU_ICON,
              APP_INFO_STANDARD_APP);
 
